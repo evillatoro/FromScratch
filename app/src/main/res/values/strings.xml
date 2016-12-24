@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FromScratch</string>
+    <string name="title_activity_category">CategoryActivity</string>
 </resources>

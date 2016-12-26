@@ -8,22 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.edwinvillatoro.fromscratch.databinding.AssignmentListItemBinding;
+import com.edwinvillatoro.fromscratch.databinding.CourseListItemBinding;
 import com.edwinvillatoro.fromscratch.model.database.SampleDBContract;
 
-public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<SampleJoinRecyclerViewCursorAdapter.ViewHolder> {
+/**
+ * Created by edwinvillatoro on 12/26/16.
+ */
+
+public class CourseRecyclerViewCursorAdapter extends RecyclerView.Adapter<CourseRecyclerViewCursorAdapter.ViewHolder> {
 
     Context mContext;
     Cursor mCursor;
 
-    public SampleJoinRecyclerViewCursorAdapter(Context context, Cursor cursor) {
+    public CourseRecyclerViewCursorAdapter(Context context, Cursor cursor) {
 
         mContext = context;
         mCursor = cursor;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        AssignmentListItemBinding itemBinding;
+        CourseListItemBinding itemBinding;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -31,16 +35,9 @@ public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sa
         }
 
         public void bindCursor(Cursor cursor) {
-            itemBinding.assignmentNameLabel.setText(cursor.getString(
-                    cursor.getColumnIndexOrThrow(SampleDBContract.Assignment.COLUMN_ASSIGNMENT_NAME)
+            itemBinding.courseNameLabel.setText(cursor.getString(
+                    cursor.getColumnIndexOrThrow(SampleDBContract.Course.COLUMN_COURSE_NAME)
             ));
-            itemBinding.scoreLabel.setText(cursor.getString(
-                    cursor.getColumnIndexOrThrow(SampleDBContract.Assignment.COLUMN_SCORE)
-            ));
-            itemBinding.categoryLabel.setText(cursor.getString(
-                    cursor.getColumnIndexOrThrow(SampleDBContract.Category.COLUMN_CATEGORY_NAME)
-            ));
-
         }
     }
 
@@ -58,7 +55,7 @@ public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sa
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.assignment_list_item, parent, false);
+                R.layout.course_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

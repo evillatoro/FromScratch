@@ -33,5 +33,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.thirdActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CourseActivity.class));
+            }
+        });
     }
 }

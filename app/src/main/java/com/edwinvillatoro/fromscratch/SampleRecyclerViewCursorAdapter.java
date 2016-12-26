@@ -32,7 +32,7 @@ public class SampleRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sample
 
         public void bindCursor(Cursor cursor) {
             itemBinding.categoryNameLabel.setText(cursor.getString(
-                    cursor.getColumnIndexOrThrow(SampleDBContract.Category.COLUMN_NAME)
+                    cursor.getColumnIndexOrThrow(SampleDBContract.Category.COLUMN_CATEGORY_NAME)
             ));
         }
     }

@@ -28,8 +28,8 @@ public class AssignmentActivity extends AppCompatActivity {
 
         binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
 
-        String[] queryCols = new String[]{"_id", SampleDBContract.Category.COLUMN_NAME};
-        String[] adapterCols = new String[]{SampleDBContract.Category.COLUMN_NAME};
+        String[] queryCols = new String[]{"_id", SampleDBContract.Category.COLUMN_CATEGORY_NAME};
+        String[] adapterCols = new String[]{SampleDBContract.Category.COLUMN_CATEGORY_NAME};
         int[] adapterRowViews = new int[]{android.R.id.text1};
 
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
@@ -97,7 +97,8 @@ public class AssignmentActivity extends AppCompatActivity {
             //If number is not integer,you wil get exception and exception message will be printed
             Log.d(TAG, e.getMessage());
 
-            String[] selectionArgs = {"%" + firstname + "%"};
+            int categoryID = ((Cursor)binding.categorySpinner.getSelectedItem()).getInt(0);
+            String[] selectionArgs = {"%" + categoryID + "%"};
 
             Cursor cursor = database.rawQuery(SampleDBContract.SELECT_EMPLOYEE_WITH_CATEGORY, selectionArgs);
             binding.recycleView.setAdapter(new SampleJoinRecyclerViewCursorAdapter(this, cursor));

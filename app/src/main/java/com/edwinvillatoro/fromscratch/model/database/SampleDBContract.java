@@ -2,31 +2,52 @@ package com.edwinvillatoro.fromscratch.model.database;
 
 import android.provider.BaseColumns;
 
+import static com.edwinvillatoro.fromscratch.model.database.SampleDBContract.Assignment.COLUMN_ASSIGNMENT_NAME;
+import static com.edwinvillatoro.fromscratch.model.database.SampleDBContract.Assignment.COLUMN_CATEGORY_ID;
+import static com.edwinvillatoro.fromscratch.model.database.SampleDBContract.Assignment.COLUMN_SCORE;
+
 public class SampleDBContract {
 
     public static final String SELECT_EMPLOYEE_WITH_EMPLOYER = "SELECT * " +
             "FROM " + Assignment.TABLE_NAME + " ee INNER JOIN " + Category.TABLE_NAME + " er " +
-            "ON ee." + Assignment.COLUMN_CATEGORY_ID + " = er." + Category._ID + " WHERE " +
-            "ee." + Assignment.COLUMN_ASSIGNMENT_NAME + " like ? AND ee." + Assignment.COLUMN_SCORE + " like ?";
+            "ON ee." + COLUMN_CATEGORY_ID + " = er." + Category._ID + " WHERE " +
+            "ee." + COLUMN_ASSIGNMENT_NAME + " like ? AND ee." + COLUMN_SCORE + " like ?";
 
     public static final String SELECT_EMPLOYEE_WITH_CATEGORY = "SELECT * " +
             "FROM " + Assignment.TABLE_NAME + " ee INNER JOIN " + Category.TABLE_NAME + " er " +
-            "ON ee." + Assignment.COLUMN_CATEGORY_ID + " = er." + Category._ID + " WHERE " +
-            "ee." + Assignment.COLUMN_ASSIGNMENT_NAME + " like ?";
+            "ON ee." + COLUMN_CATEGORY_ID + " = er." + Category._ID + " WHERE " +
+            "ee." + COLUMN_CATEGORY_ID + " like ?";
 
     private SampleDBContract() {
 
     }
+
+    public static class Course implements BaseColumns {
+        public static final String TABLE_NAME = "course";
+        public static final String COLUMN_COURSE_NAME = "courseName";
+
+        public static final String CREATE_TABLE = "CREATE TABLE " +
+                TABLE_NAME + " (" +
+                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_COURSE_NAME + " TEXT " + ")";
+
+    }
+
     // implements BaseColumns to have a _ID column
     // CREATE TABLE IF NOT EXISTS category (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, date INTEGER)
     public static class Category implements BaseColumns {
         public static final String TABLE_NAME = "category";
-        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_CATEGORY_NAME = "categoryName";
+        public static final String COLUMN_COURSE_ID = "course_id";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " +
+        public static final String CREATE_TABLE = "CREATE TABLE " +
                 TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NAME + " TEXT " + ")";
+                COLUMN_CATEGORY_NAME + " TEXT, " +
+                COLUMN_COURSE_ID + " INTEGER, " +
+                "FOREIGN KEY(" + COLUMN_COURSE_ID + ") REFERENCES " +
+                Course.TABLE_NAME + "(" + Course._ID + ") " + ")";
+
     }
 
     public static class Assignment implements BaseColumns {

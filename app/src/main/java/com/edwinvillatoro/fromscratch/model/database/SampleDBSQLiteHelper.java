@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SampleDBSQLiteHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "sample_database";
 
     public SampleDBSQLiteHelper(Context context) {
@@ -18,12 +18,14 @@ public class SampleDBSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(SampleDBContract.Course.CREATE_TABLE);
         sqLiteDatabase.execSQL(SampleDBContract.Category.CREATE_TABLE);
         sqLiteDatabase.execSQL(SampleDBContract.Assignment.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SampleDBContract.Course.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SampleDBContract.Category.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SampleDBContract.Assignment.TABLE_NAME);
         onCreate(sqLiteDatabase);
